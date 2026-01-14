@@ -7,7 +7,7 @@ A programming language written entirely in Morse code.
 ### macOS
 ```bash
 python3 -m pip install -e .
-export PATH="/Users/blaz/Library/Python/3.9/bin:$PATH"
+export PATH="/Users/USERNAME/Library/Python/3.9/bin:$PATH"
 ```
 
 ### Windows
