@@ -286,39 +286,8 @@
         <!-- Guide -->
         <div class="morse-guide">
             <h3>📚 Morse Code Reference</h3>
-            <div class="morse-grid">
-                <div class="morse-item">
-                    <span class="morse-char">A</span>
-                    <span class="morse-code">.-</span>
-                </div>
-                <div class="morse-item">
-                    <span class="morse-char">B</span>
-                    <span class="morse-code">-...</span>
-                </div>
-                <div class="morse-item">
-                    <span class="morse-char">C</span>
-                    <span class="morse-code">-.-.</span>
-                </div>
-                <div class="morse-item">
-                    <span class="morse-char">D</span>
-                    <span class="morse-code">-..</span>
-                </div>
-                <div class="morse-item">
-                    <span class="morse-char">E</span>
-                    <span class="morse-code">.</span>
-                </div>
-                <div class="morse-item">
-                    <span class="morse-char">F</span>
-                    <span class="morse-code">..-.</span>
-                </div>
-                <div class="morse-item">
-                    <span class="morse-char">G</span>
-                    <span class="morse-code">--.</span>
-                </div>
-                <div class="morse-item">
-                    <span class="morse-char">H</span>
-                    <span class="morse-code">......</span>
-                </div>
+            <div id="morse-reference-container">
+                <p style="text-align: center; color: #999;">Loading morse map...</p>
             </div>
         </div>
     </div>
@@ -326,6 +295,68 @@
     <div class="notification" id="notification"></div>
 
     <script>
+        // Load morse map on page load
+        async function loadMorseMap() {
+            try {
+                const response = await fetch('/api/morse-map');
+                const data = await response.json();
+                displayMorseMap(data);
+            } catch (error) {
+                console.error('Error loading morse map:', error);
+                document.getElementById('morse-reference-container').innerHTML = 
+                    '<p style="text-align: center; color: #999;">Failed to load morse map</p>';
+            }
+        }
+
+        function displayMorseMap(morseMap) {
+            const container = document.getElementById('morse-reference-container');
+            let html = '';
+
+            const categories = [
+                { key: 'letters', title: '🔤 Letters' },
+                { key: 'numbers', title: '🔢 Numbers' },
+                { key: 'operators', title: '➕ Operators' },
+                { key: 'brackets', title: '⟨⟩ Brackets' },
+                { key: 'punctuation', title: '❗ Punctuation' }
+            ];
+
+            for (const category of categories) {
+                const items = morseMap[category.key];
+                if (Object.keys(items).length === 0) continue;
+
+                html += `<div style="margin-bottom: 25px;">
+                            <h4 style="color: #667eea; margin-bottom: 10px; font-size: 1em;">${category.title}</h4>
+                            <div class="morse-grid">`;
+
+                // Sort items alphabetically/numerically
+                const sortedKeys = Object.keys(items).sort();
+                
+                for (const key of sortedKeys) {
+                    const morseCode = items[key];
+                    html += `<div class="morse-item">
+                                <span class="morse-char">${escapeHtml(key)}</span>
+                                <span class="morse-code">${escapeHtml(morseCode)}</span>
+                            </div>`;
+                }
+
+                html += `</div></div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Load morse map when page loads
+        document.addEventListener('DOMContentLoaded', loadMorseMap);
+
         async function textToMorse() {
             const text = document.getElementById('text-input').value;
             if (!text.trim()) {

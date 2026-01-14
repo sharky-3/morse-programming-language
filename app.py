@@ -57,5 +57,30 @@ def text_endpoint():
     morse = text_to_morse(text)
     return jsonify({'morse': morse})
 
+@app.route('/api/morse-map', methods=['GET'])
+def morse_map_endpoint():
+    """Return the complete morse map organized by category"""
+    morse_map_organized = {
+        'letters': {},
+        'numbers': {},
+        'operators': {},
+        'brackets': {},
+        'punctuation': {}
+    }
+    
+    for morse_code, char in MORSE_MAP.items():
+        if char.isalpha():
+            morse_map_organized['letters'][char] = morse_code
+        elif char.isdigit():
+            morse_map_organized['numbers'][char] = morse_code
+        elif char in '+-*/=':
+            morse_map_organized['operators'][char] = morse_code
+        elif char in '()[]{}':
+            morse_map_organized['brackets'][char] = morse_code
+        else:
+            morse_map_organized['punctuation'][char] = morse_code
+    
+    return jsonify(morse_map_organized)
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
