@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sys
-from .lexer import morse_to_text  # assumes you have a morse_to_text function
+from .lexer import morse_to_text  # your Morse-to-text function
 
 def main():
     if len(sys.argv) != 2:
@@ -20,9 +20,10 @@ def main():
     # Translate Morse to Python code as text
     python_code = morse_to_text(morse_code)
 
-    # Execute the translated Python code
+    # Execute the translated Python code in a shared namespace
+    namespace = {}  # this allows variables to persist in the execution
     try:
-        exec(python_code)
+        exec(python_code, namespace)
     except Exception as e:
         print(f"Error executing code: {e}")
 
