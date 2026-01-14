@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "morse-lang"
+version = "0.1.0"
+description = "A Morse code programming language"
+authors = [{name="..."}]
+
+[project.scripts]
+morse = "morse_lang.cli:main"
