@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morse Code Translator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .translator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .translator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        textarea, input {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: 'Courier New', monospace;
+            transition: border-color 0.3s;
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-translate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-translate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-translate:active {
+            transform: translateY(0);
+        }
+
+        .btn-copy {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-copy:hover {
+            background: #e0e0e0;
+            border-color: #d0d0d0;
+        }
+
+        .btn-clear {
+            background: #ffebee;
+            color: #c62828;
+            border: 2px solid #ef5350;
+        }
+
+        .btn-clear:hover {
+            background: #ffcdd2;
+        }
+
+        .output {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            min-height: 120px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            border: 2px solid #e0e0e0;
+            color: #333;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .output.empty {
+            color: #999;
+            font-style: italic;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: #4caf50;
+            color: white;
+            border-radius: 6px;
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .morse-guide {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+            border-left: 4px solid #667eea;
+        }
+
+        .morse-guide h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .morse-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            font-size: 0.9em;
+        }
+
+        .morse-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .morse-char {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .morse-code {
+            color: #666;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Morse Code Translator</h1>
+        <p class="subtitle">Convert between text and Morse code</p>
+
+        <div class="translator-grid">
+            <!-- Text to Morse -->
+            <div class="section">
+                <h2 class="section-title">Text → Morse</h2>
+                <div class="input-group">
+                    <label for="text-input">Enter Text:</label>
+                    <textarea id="text-input" placeholder="Type your text here..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn-translate" onclick="textToMorse()">Translate</button>
+                    <button class="btn-clear" onclick="clearTextInput()">Clear</button>
+                </div>
+                <div class="input-group">
+                    <label>Morse Code:</label>
+                    <div class="output empty" id="morse-output">Output will appear here...</div>
+                </div>
+                <button class="btn-copy" onclick="copyToClipboard('morse-output')">📋 Copy Morse</button>
+            </div>
+
+            <!-- Morse to Text -->
+            <div class="section">
+                <h2 class="section-title">Morse → Text</h2>
+                <div class="input-group">
+                    <label for="morse-input">Enter Morse Code:</label>
+                    <textarea id="morse-input" placeholder="Enter morse code (dots and dashes)..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button class="btn-translate" onclick="morseToText()">Translate</button>
+                    <button class="btn-clear" onclick="clearMorseInput()">Clear</button>
+                </div>
+                <div class="input-group">
+                    <label>Text:</label>
+                    <div class="output empty" id="text-output">Output will appear here...</div>
+                </div>
+                <button class="btn-copy" onclick="copyToClipboard('text-output')">📋 Copy Text</button>
+            </div>
+        </div>
+
+        <!-- Guide -->
+        <div class="morse-guide">
+            <h3>📚 Morse Code Reference</h3>
+            <div class="morse-grid">
+                <div class="morse-item">
+                    <span class="morse-char">A</span>
+                    <span class="morse-code">.-</span>
+                </div>
+                <div class="morse-item">
+                    <span class="morse-char">B</span>
+                    <span class="morse-code">-...</span>
+                </div>
+                <div class="morse-item">
+                    <span class="morse-char">C</span>
+                    <span class="morse-code">-.-.</span>
+                </div>
+                <div class="morse-item">
+                    <span class="morse-char">D</span>
+                    <span class="morse-code">-..</span>
+                </div>
+                <div class="morse-item">
+                    <span class="morse-char">E</span>
+                    <span class="morse-code">.</span>
+                </div>
+                <div class="morse-item">
+                    <span class="morse-char">F</span>
+                    <span class="morse-code">..-.</span>
+                </div>
+                <div class="morse-item">
+                    <span class="morse-char">G</span>
+                    <span class="morse-code">--.</span>
+                </div>
+                <div class="morse-item">
+                    <span class="morse-char">H</span>
+                    <span class="morse-code">......</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        async function textToMorse() {
+            const text = document.getElementById('text-input').value;
+            if (!text.trim()) {
+                showNotification('Please enter some text');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/text-to-morse', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: text })
+                });
+
+                const data = await response.json();
+                const output = document.getElementById('morse-output');
+                output.textContent = data.morse;
+                output.classList.remove('empty');
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Translation failed');
+            }
+        }
+
+        async function morseToText() {
+            const morse = document.getElementById('morse-input').value;
+            if (!morse.trim()) {
+                showNotification('Please enter morse code');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/morse-to-text', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ morse: morse })
+                });
+
+                const data = await response.json();
+                const output = document.getElementById('text-output');
+                output.textContent = data.text;
+                output.classList.remove('empty');
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Translation failed');
+            }
+        }
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            if (!text || text === 'Output will appear here...') {
+                showNotification('Nothing to copy');
+                return;
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('Copied to clipboard!');
+            });
+        }
+
+        function clearTextInput() {
+            document.getElementById('text-input').value = '';
+            document.getElementById('morse-output').textContent = 'Output will appear here...';
+            document.getElementById('morse-output').classList.add('empty');
+        }
+
+        function clearMorseInput() {
+            document.getElementById('morse-input').value = '';
+            document.getElementById('text-output').textContent = 'Output will appear here...';
+            document.getElementById('text-output').classList.add('empty');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Allow Enter key to translate
+        document.getElementById('text-input').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') textToMorse();
+        });
+
+        document.getElementById('morse-input').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') morseToText();
+        });
+    </script>
+</body>
+</html>

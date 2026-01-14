@@ -13,8 +13,8 @@ def morse_to_text(code: str) -> str:
             decoded = []
             for l in letters:
                 if l not in MORSE_MAP:
-                    print(f"Unknown Morse symbol: {l}")  # <- debug
-                    decoded.append("?")  # placeholder
+                    print(f"Unknown Morse symbol: {l}") 
+                    decoded.append("?")
                 else:
                     decoded.append(MORSE_MAP[l])
             decoded_words.append("".join(decoded))

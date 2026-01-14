@@ -26,4 +26,9 @@ MORSE_MAP = {
     ".-..-.-": "}",  # close brace
     ".-.-..": "[",  # open bracket
     ".-.-.-": "]",  # close bracket
+
+    # punctuation
+    "--..--": ",",  # comma
+    "......": ".",  # period
+    ".----.": "'",  # apostrophe
 }

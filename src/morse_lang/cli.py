@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sys
-from .lexer import morse_to_text
+from .lexer import morse_to_text  # assumes you have a morse_to_text function
 
 def main():
     if len(sys.argv) != 2:
@@ -13,14 +13,18 @@ def main():
         print("Error: file must end with .mc")
         sys.exit(1)
 
+    # Read Morse code from file
     with open(filename, "r") as f:
         morse_code = f.read()
 
-    # Translate Morse to text
-    text_code = morse_to_text(morse_code)
+    # Translate Morse to Python code as text
+    python_code = morse_to_text(morse_code)
 
-    # Just print the translated text
-    print(text_code)
+    # Execute the translated Python code
+    try:
+        exec(python_code)
+    except Exception as e:
+        print(f"Error executing code: {e}")
 
 if __name__ == "__main__":
     main()
