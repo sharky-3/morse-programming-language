@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import sys
 from .lexer import morse_to_text
 
@@ -14,7 +13,6 @@ def main():
         print("Error: file must end with .mc")
         sys.exit(1)
 
-    # Read Morse code from file
     try:
         with open(filename, "r") as f:
             morse_code = f.read()
@@ -25,10 +23,8 @@ def main():
         print(f"Error reading file: {e}")
         sys.exit(1)
 
-    # Translate Morse to Python code as text
     python_code = morse_to_text(morse_code)
 
-    # Execute the translated Python code in a shared namespace
     namespace = {}
     try:
         exec(python_code, namespace)

@@ -2,31 +2,24 @@ from flask import Flask, render_template, request, jsonify
 import sys
 import os
 
-# Add src directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-
 from morse_lang.morse_map import MORSE_MAP
-
 app = Flask(__name__)
-
-# Reverse the MORSE_MAP to convert morse to text
 REVERSE_MORSE_MAP = {v: k for k, v in MORSE_MAP.items()}
 
 def morse_to_text(morse_code):
     """Convert morse code to text"""
-    # Split by spaces - spaces between morse characters, double spaces between words
     morse_chars = morse_code.split(' ')
     text = []
     
     for morse_char in morse_chars:
         if morse_char == '':
-            # Double space indicates word boundary
             if text and text[-1] != ' ':
                 text.append(' ')
         elif morse_char in MORSE_MAP:
             text.append(MORSE_MAP[morse_char])
         else:
-            text.append(f'[{morse_char}]')  # Unknown morse code
+            text.append(f'[{morse_char}]') 
     
     return ''.join(text)
 
@@ -36,15 +29,13 @@ def text_to_morse(text):
     
     for char in text.lower():
         if char == ' ':
-            morse.append('')  # Empty string represents word boundary
+            morse.append('') 
         elif char in REVERSE_MORSE_MAP:
             morse.append(REVERSE_MORSE_MAP[char])
         else:
-            morse.append(f'[{char}]')  # Unknown character
+            morse.append(f'[{char}]') 
     
-    # Join with spaces, handle word boundaries
     result = ' '.join(morse)
-    # Replace consecutive spaces with double space for clarity
     result = result.replace('   ', '  ')
     return result
 

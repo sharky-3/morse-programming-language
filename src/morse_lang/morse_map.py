@@ -20,15 +20,15 @@ MORSE_MAP = {
     "-.-.-": "*", 
 
     # brackets and parentheses
-    "-.--.": "(",  # open parenthesis
-    "-.--.-": ")",  # close parenthesis
-    ".-..-.": "{",  # open brace (commonly used in some extended maps)
-    ".-..-.-": "}",  # close brace
-    ".-.-..": "[",  # open bracket
-    ".-.-.-": "]",  # close bracket
+    "-.--.": "(", 
+    "-.--.-": ")", 
+    ".-..-.": "{", 
+    ".-..-.-": "}",
+    ".-.-..": "[", 
+    ".-.-.-": "]",  
 
     # punctuation
-    "--..--": ",",  # comma
-    "......": ".",  # period
-    ".----.": "'",  # apostrophe
+    "--..--": ",", 
+    "......": ".",  
+    ".----.": "'",  
 }
