@@ -24,25 +24,112 @@
 
 ## Table of Contents
 
+- **[What You Can Do](#what-you-can-do)**
 - **[Overview](#overview)**
-- **[How It Works](#how-it-works)**
-- **[Quick Demo](#quick-demo)**
 - **[Getting Started](#getting-started)**
   - **[Prerequisites](#prerequisites)**
   - **[Installation (from PyPI)](#installation-from-pypi)**
   - **[Installation (from source)](#installation-from-source)**
   - **[Running Your First Morse Program](#running-your-first-morse-program)**
+- **[How It Works](#how-it-works)**
 - **[Language Basics](#language-basics)**
 - **[Web Frontend (Text ⇄ Morse Translator)](#web-frontend-text--morse-translator)**
 - **[Development](#development)**
 
 <hr />
 
+## What You Can Do
+
+**Morse Lang** lets you write full Python programs using only dots (`.`) and dashes (`-`). Here's what you can build:
+
+### 🔢 **Variables**
+
+Create and store values in variables:
+
+**Python:**
+```python
+x = 10
+y = 20
+name = "morse"
+```
+
+**Morse:**
+```text
+-..-   -...-   .---- -----
+-.--   -...-   ..--- -----
+-.. .- -- .   -...-   .----. -- --- .-. ... . .----.
+```
+
+### ➕ **Math Operations**
+
+Perform arithmetic with addition, subtraction, multiplication, and division:
+
+**Python:**
+```python
+result = 5 + 3
+product = 10 * 2
+difference = 100 - 25
+quotient = 20 / 4
+```
+
+**Morse:**
+```text
+.-. . ... ..- .-.. -   -...-   ..... .-.-. ...--
+.--. .-. --- -.. ..- -.-. -   -...-   .---- ----- -.-.- ..---
+-.. .. ..-. ..-. . .-. . -. -.-. .   -...-   .---- ----- ----- -....- ..--- .....
+--.- ..- --- - .. . -. -   -...-   ..--- ----- -..-. ....-
+```
+
+### 📝 **Print Statements**
+
+Display output to the console:
+
+**Python:**
+```python
+print("Hello, World!")
+print(42)
+print(x + y)
+```
+
+**Morse:**
+```text
+.--. .-. .. -. - -.--. .----. .... . .-.. .-.. --- --..--  .-- --- .-. .-.. -.. .----. -.--.-
+.--. .-. .. -. - -.--. ....- ..--- -.--.-
+.--. .-. .. -. - -.--. -..- .-.-. -.-- -.--.-
+```
+
+### 🎯 **Complete Example**
+
+Here's a full program that combines all features:
+
+**Python:**
+```python
+x = 5
+y = 10
+sum = x + y
+print("The sum is:", sum)
+```
+
+**Morse:**
+```text
+-..-   -...-   .....
+-.--   -...-   .---- -----
+... ..- --   -...-   -..- .-.-. -.--
+.--. .-. .. -. - -.--. .----. - .... .  ... ..- --  .. ... --- --..-- .----.   ... ..- -- -.--.-
+```
+
+**Output:**
+```
+The sum is: 15
+```
+
+> 💡 **Note:** Since Morse Lang executes Python code, you can use **any Python feature** including loops, functions, imports, classes, and more! The examples above show the basics, but the language is fully capable of running complex Python programs.
+
+<hr />
+
 ## Overview
 
-**Morse Lang** lets you write Python code, but the source itself is Morse code.
-
-You write a `.mc` file using dots (`.`) and dashes (`-`), the `morse` CLI decodes it into Python, and then executes it.  
+**Morse Lang** is a programming language where your source code is written entirely in Morse code. You write a `.mc` file using dots (`.`) and dashes (`-`), the `morse` CLI decodes it into Python, and then executes it.  
 It works the same way on **macOS**, **Windows**, and **Linux** as long as you have Python installed.
 
 **Use cases**
@@ -65,28 +152,6 @@ It works the same way on **macOS**, **Windows**, and **Linux** as long as you ha
   The decoded Python string is executed with `exec(...)` in a fresh namespace, just like running a regular `.py` script.
 
 Because of this, **Morse Lang programs can do anything Python can**. Only run `.mc` files you trust, just as you would with untrusted Python code.
-
-<hr />
-
-## Quick Demo
-
-If you have cloned this repo, you can immediately run the included `hello.mc`:
-
-```bash
-morse examples/hello.mc
-```
-
-This is equivalent to running the following Python:
-
-```python
-print('hello, world')
-```
-
-But the actual file only contains Morse:
-
-```text
-.--. .-. .. -. - -.--. .----. .... . .-.. .-.. --- --..--  .-- --- .-. .-.. -.. .----. -.--.-
-```
 
 <hr />
 
@@ -152,29 +217,21 @@ This installs `morse-lang` in editable mode so changes to the source are reflect
 
 ### Running Your First Morse Program
 
-#### 1. Using the included example
+#### 1. Try the included example
 
-If you installed from PyPI and want to run your own `.mc` file:
+If you cloned this repository, you can immediately run the included example:
 
-1. Create a file, for example `hello.mc`, containing:
+- **macOS / Linux:**
 
-   ```text
-   .--. .-. .. -. - -.--. .----. .... . .-.. .-.. --- --..--  .-- --- .-. .-.. -.. .----. -.--.-
-   ```
+  ```bash
+  morse examples/hello.mc
+  ```
 
-2. Run it:
+- **Windows:**
 
-   - **macOS / Linux:**
-
-     ```bash
-     morse hello.mc
-     ```
-
-   - **Windows:**
-
-     ```powershell
-     morse hello.mc
-     ```
+  ```powershell
+  morse examples\hello.mc
+  ```
 
 You should see:
 
@@ -182,64 +239,183 @@ You should see:
 hello, world
 ```
 
-#### 2. If `morse` is not found on Windows
+#### 2. Create your own program
 
-Sometimes PATH setup can be tricky. You can always fall back to:
+Create a new file, for example `my_program.mc`, and add some Morse code:
 
+**Example: Simple math program**
+
+Create `math.mc`:
+
+```text
+-..-   -...-   .---- -----
+-.--   -...-   .....
+.--. .-. .. -. - -.--. .----. -..-   .. ... --- --..-- .----.   -..- -.--.-
+.--. .-. .. -. - -.--. .----. -.--   .. ... --- --..-- .----.   -.-- -.--.-
+.--. .-. .. -. - -.--. .----. ... ..- --   .. ... --- --..-- .----.   -..- .-.-. -.-- -.--.-
+```
+
+Run it:
+
+- **macOS / Linux:**
+
+  ```bash
+  morse math.mc
+  ```
+
+- **Windows:**
+
+  ```powershell
+  morse math.mc
+  ```
+
+**Output:**
+```
+x is: 10
+y is: 5
+sum is: 15
+```
+
+> 💡 **Tip:** Use the [Web Frontend](#web-frontend-text--morse-translator) to help translate your Python code to Morse code!
+
+#### 3. Troubleshooting: Command not found
+
+If the `morse` command is not found after installation:
+
+**Windows:**
 ```powershell
-py -m morse_lang.cli path\to\file.mc
+# Try using Python module directly
+py -m morse_lang.cli math.mc
+
+# Or with full path
+python -m morse_lang.cli math.mc
 ```
 
-On macOS / Linux:
-
+**macOS / Linux:**
 ```bash
-python -m morse_lang.cli path/to/file.mc
+# Try using Python module directly
+python -m morse_lang.cli math.mc
+
+# Or check if morse is in your PATH
+which morse
 ```
+
+If it's still not working, make sure:
+- Python is installed and in your PATH
+- You've activated your virtual environment (if using one)
+- The package was installed successfully (`pip list | grep morse-lang`)
 
 <hr />
 
 ## Language Basics
 
-At its core, **Morse Lang is “Python in Morse”**. Each Morse token is mapped to a character:
+At its core, **Morse Lang is "Python in Morse"**. Each Morse token is mapped to a character using standard Morse code conventions:
 
-- Single space (`" "`) between Morse codes → separates letters
-- Triple space (`"   "`) between sequences → separates words
-- Each line in your `.mc` file → one line of decoded Python
+### 📋 **Syntax Rules**
 
-The mapping is defined in `MORSE_MAP` (letters, digits, operators, punctuation). Example:
+- **Single space (`" "`)** between Morse codes → separates letters within a word
+- **Triple space (`"   "`)** between sequences → separates words
+- **Each line** in your `.mc` file → one line of decoded Python
 
-- **Letters:** `.-` → `a`, `-...` → `b`, `....` → `h`, etc.
-- **Digits:** `.....` → `5`, `--...` → `7`, etc.
-- **Operators:**  
-  - `.-.-.` → `+`  
-  - `-...-` → `=`  
-  - `-....-` → `-`  
-  - `-..-.` → `/`  
-  - `-.-.-` → `*`
-- **Punctuation / grouping:**  
-  - `--..--` → `,`  
-  - `.----.` → `'`  
-  - `-.--.` → `(`, `-.--.-` → `)`
+### 🔤 **Morse Code Mapping**
 
-### Example: variables and arithmetic
+The mapping is defined in `MORSE_MAP` and includes:
 
-Python:
+#### **Letters (A-Z)**
+```
+.-   → a      -... → b      -.-. → c      -..  → d      .    → e
+..-. → f      --.  → g      .... → h      ..   → i      .--- → j
+-.-  → k      .-.. → l      --   → m      -.   → n      ---  → o
+.--. → p      --.- → q      .-.  → r      ...  → s      -    → t
+..-  → u      ...- → v      .--  → w      -..- → x      -.-- → y
+--.. → z
+```
 
+#### **Digits (0-9)**
+```
+----- → 0     .---- → 1     ..--- → 2     ...-- → 3     ....- → 4
+..... → 5     -.... → 6     --... → 7     ---.. → 8     ----. → 9
+```
+
+#### **Math Operators**
+```
+.-.-.  → +    (addition)
+-....- → -    (subtraction)
+-.-.-  → *    (multiplication)
+-..-.  → /    (division)
+-...-  → =    (assignment/equality)
+```
+
+#### **Punctuation & Symbols**
+```
+--..-- → ,    (comma)
+...... → .    (period)
+.----. → '    (apostrophe)
+-.--.  → (    (left parenthesis)
+-.--.- → )    (right parenthesis)
+```
+
+### 💡 **Writing Morse Code Programs**
+
+When writing your `.mc` files, remember:
+
+1. **Separate letters with single spaces:** `.... . .-.. .-.. ---` = `hello`
+2. **Separate words with triple spaces:** `.... . .-.. .-.. ---   .-- --- .-. .-.. -..` = `hello world`
+3. **Each line becomes one Python line:** Line breaks in `.mc` become line breaks in Python
+
+### 📚 **Example Programs**
+
+#### **Simple Print**
+**Python:**
 ```python
-let x = 5
-print(x)
+print("Hello, World!")
 ```
 
-In Morse (spaces between letters, triple spaces between words):
-
+**Morse:**
 ```text
-.-.. . -   -..-   -...-   .....      # let x = 5
-.--. .-. .. -. - -.--. -..- -.--.-   # print(x)
+.--. .-. .. -. - -.--. .----. .... . .-.. .-.. --- --..--  .-- --- .-. .-.. -.. .----. -.--.-
 ```
 
-When passed through `morse`, this decodes to the Python code and executes it.
+#### **Variables and Math**
+**Python:**
+```python
+x = 10
+y = 5
+result = x + y
+print(result)
+```
 
-You can combine any valid Morse characters into full Python programs (loops, functions, imports, etc.), as long as the decoded text is valid Python.
+**Morse:**
+```text
+-..-   -...-   .---- -----
+-.--   -...-   .....
+.-. . ... ..- .-.. -   -...-   -..- .-.-. -.--
+.--. .-. .. -. - -.--. .-. . ... ..- .-.. - -.--.-
+```
+
+**Output:**
+```
+15
+```
+
+#### **String Concatenation**
+**Python:**
+```python
+greeting = "Hello"
+name = "Morse"
+message = greeting + ", " + name + "!"
+print(message)
+```
+
+**Morse:**
+```text
+--. .-. . . - .. -. --.   -...-   .----. .... . .-.. .-.. --- .----.
+-. .- -- .   -...-   .----. -- --- .-. ... . .----.
+-- . ... ... .- --. .   -...-   --. .-. . . - .. -. --. .-.-. --..--  .-.-. -. .- -- . .-.-. .----.
+.--. .-. .. -. - -.--. -- . ... ... .- --. . -.--.-
+```
+
+> 🚀 **Pro Tip:** Since Morse Lang executes Python, you can use **any Python feature** including loops (`for`, `while`), conditionals (`if`, `else`), functions (`def`), classes, imports, and more! Just translate your Python code to Morse using the mapping above.
 
 <hr />
 
