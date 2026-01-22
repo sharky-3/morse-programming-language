@@ -1,5 +1,7 @@
 import sys
 from .lexer import morse_to_text
+from .parser import parse
+from .interpreter import run
 
 def main():
     """Main entry point for the morse command-line tool."""
@@ -23,11 +25,13 @@ def main():
         print(f"Error reading file: {e}")
         sys.exit(1)
 
-    python_code = morse_to_text(morse_code)
+    # Decode Morse code to text
+    program_code = morse_to_text(morse_code)
 
-    namespace = {}
     try:
-        exec(python_code, namespace)
+        # Parse and execute the program
+        ast = parse(program_code)
+        run(ast)
     except Exception as e:
         print(f"Error executing code: {e}")
         sys.exit(1)
