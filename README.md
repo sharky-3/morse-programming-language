@@ -48,16 +48,16 @@ Create and store values in variables:
 
 **Python:**
 ```python
-x = 10
-y = 20
-name = "morse"
+var x = 10
+var y = 20
+var name = "morse"
 ```
 
 **Morse:**
 ```text
--..-   -...-   .---- -----
--.--   -...-   ..--- -----
--.. .- -- .   -...-   .----. -- --- .-. ... . .----.
+...- .- .-.   -..-   -...-   .---- -----
+...- .- .-.   -.--   -...-   ..--- -----
+...- .- .-.   -.. .- -- .   -...-   .----. -- --- .-. ... . .----.
 ```
 
 ### ➕ **Math Operations**
@@ -66,18 +66,18 @@ Perform arithmetic with addition, subtraction, multiplication, and division:
 
 **Python:**
 ```python
-result = 5 + 3
-product = 10 * 2
-difference = 100 - 25
-quotient = 20 / 4
+var result = 5 + 3
+var product = 10 * 2
+var difference = 100 - 25
+var quotient = 20 / 4
 ```
 
 **Morse:**
 ```text
-.-. . ... ..- .-.. -   -...-   ..... .-.-. ...--
-.--. .-. --- -.. ..- -.-. -   -...-   .---- ----- -.-.- ..---
--.. .. ..-. ..-. . .-. . -. -.-. .   -...-   .---- ----- ----- -....- ..--- .....
---.- ..- --- - .. . -. -   -...-   ..--- ----- -..-. ....-
+...- .- .-.   .-. . ... ..- .-.. -   -...-   ..... .-.-. ...--
+...- .- .-.   .--. .-. --- -.. ..- -.-. -   -...-   .---- ----- -.-.- ..---
+...- .- .-.   -.. .. ..-. ..-. . .-. . -. -.-. .   -...-   .---- ----- ----- -....- ..--- .....
+...- .- .-.   --.- ..- --- - .. . -. -   -...-   ..--- ----- -..-. ....-
 ```
 
 ### 📝 **Print Statements**
@@ -98,32 +98,140 @@ print(x + y)
 .--. .-. .. -. - -.--. -..- .-.-. -.-- -.--.-
 ```
 
+### 🔁 **For Loops**
+
+Iterate over a range of numbers:
+
+**Python:**
+```python
+for i in range(5):
+  print i
+```
+
+**Morse:**
+```text
+..-. --- .-.   ..   .. -.   .-. .- -. --. . -.--. ..... -.--.- --- --..--
+  .--. .-. .. -. -   ..
+```
+
+**Output:**
+```
+0
+1
+2
+3
+4
+```
+
+### 🔄 **While Loops**
+
+Repeat code while a condition is true:
+
+**Python:**
+```python
+var count = 0
+while count < 3:
+  print count
+  var count = count + 1
+```
+
+**Morse:**
+```text
+...- .- .-.   -.-. --- ..- -. -   -...-   -----
+.-- .... .. .-.. .   -.-. --- ..- -. -   -....-   ...--
+  .--. .-. .. -. -   -.-. --- ..- -. -
+  ...- .- .-.   -.-. --- ..- -. -   -...-   -.-. --- ..- -. - .-.-. .----
+```
+
+**Output:**
+```
+0
+1
+2
+```
+
+### ⚙️ **Functions**
+
+Define reusable functions with parameters and return values:
+
+**Python:**
+```python
+func greet():
+  print hello
+  print world
+
+greet()
+
+func add(a b):
+  return a + b
+
+var result = add(3 5)
+print result
+```
+
+**Morse:**
+```text
+..-. ..- -. -.-.   --. .-. . . - -.--. -.--.- --- --..--
+  .--. .-. .. -. -   .... . .-.. .-.. ---
+  .--. .-. .. -. -   .-- --- .-. .-.. -..
+
+--. .-. . . - -.--. -.--.-
+
+..-. ..- -. -.-.   .- -.. -.. -.--. .-   -... -.--.- --- --..--
+  .-. . - ..- .-. -.   .- .-.-. -...
+
+...- .- .-.   .-. . ... ..- .-.. -   -...-   .- -.. -.. -.--. ...--   ..... -.--.-
+.--. .-. .. -. -   .-. . ... ..- .-.. -
+```
+
+**Output:**
+```
+hello
+world
+8
+```
+
 ### 🎯 **Complete Example**
 
 Here's a full program that combines all features:
 
 **Python:**
 ```python
-x = 5
-y = 10
-sum = x + y
-print("The sum is:", sum)
+func calculate_sum(a b):
+  return a + b
+
+var x = 5
+var y = 10
+var total = calculate_sum(x y)
+print total
+
+for i in range(3):
+  print i
 ```
 
 **Morse:**
 ```text
--..-   -...-   .....
--.--   -...-   .---- -----
-... ..- --   -...-   -..- .-.-. -.--
-.--. .-. .. -. - -.--. .----. - .... .  ... ..- --  .. ... --- --..-- .----.   ... ..- -- -.--.-
+..-. ..- -. -.-.   -.-. .- .-.. -.-. ..- .-.. .- - .   ... ..- -- -.--. .-   -... -.--.- --- --..--
+  .-. . - ..- .-. -.   .- .-.-. -...
+
+...- .- .-.   -..-   -...-   .....
+...- .- .-.   -.--   -...-   .---- -----
+...- .- .-.   - --- - .- .-..   -...-   -.-. .- .-.. -.-. ..- .-.. .- - .   ... ..- -- -.--. -..-   -.-- -.--.-
+.--. .-. .. -. -   - --- - .- .-..
+
+..-. --- .-.   ..   .. -.   .-. .- -. --. . -.--. ...-- -.--.- --- --..--
+  .--. .-. .. -. -   ..
 ```
 
 **Output:**
 ```
-The sum is: 15
+15
+0
+1
+2
 ```
 
-> 💡 **Note:** Since Morse Lang executes Python code, you can use **any Python feature** including loops, functions, imports, classes, and more! The examples above show the basics, but the language is fully capable of running complex Python programs.
+> 💡 **Note:** Morse Lang supports all these features and more! You can combine variables, math, loops, and functions to build complex programs entirely in Morse code.
 
 <hr />
 
@@ -248,11 +356,10 @@ Create a new file, for example `my_program.mc`, and add some Morse code:
 Create `math.mc`:
 
 ```text
--..-   -...-   .---- -----
--.--   -...-   .....
-.--. .-. .. -. - -.--. .----. -..-   .. ... --- --..-- .----.   -..- -.--.-
-.--. .-. .. -. - -.--. .----. -.--   .. ... --- --..-- .----.   -.-- -.--.-
-.--. .-. .. -. - -.--. .----. ... ..- --   .. ... --- --..-- .----.   -..- .-.-. -.-- -.--.-
+...- .- .-.   -..-   -...-   .---- -----
+...- .- .-.   -.--   -...-   .....
+...- .- .-.   ... ..- --   -...-   -..- .-.-. -.--
+.--. .-. .. -. -   ... ..- --
 ```
 
 Run it:
@@ -271,10 +378,24 @@ Run it:
 
 **Output:**
 ```
-x is: 10
-y is: 5
-sum is: 15
+15
 ```
+
+**Example: Try loops and functions**
+
+You can also run the included example with loops and functions:
+
+- **macOS / Linux:**
+
+  ```bash
+  morse examples/loops_and_functions.mc
+  ```
+
+- **Windows:**
+
+  ```powershell
+  morse examples\loops_and_functions.mc
+  ```
 
 > 💡 **Tip:** Use the [Web Frontend](#web-frontend-text--morse-translator) to help translate your Python code to Morse code!
 
@@ -379,18 +500,18 @@ print("Hello, World!")
 #### **Variables and Math**
 **Python:**
 ```python
-x = 10
-y = 5
-result = x + y
-print(result)
+var x = 10
+var y = 5
+var result = x + y
+print result
 ```
 
 **Morse:**
 ```text
--..-   -...-   .---- -----
--.--   -...-   .....
-.-. . ... ..- .-.. -   -...-   -..- .-.-. -.--
-.--. .-. .. -. - -.--. .-. . ... ..- .-.. - -.--.-
+...- .- .-.   -..-   -...-   .---- -----
+...- .- .-.   -.--   -...-   .....
+...- .- .-.   .-. . ... ..- .-.. -   -...-   -..- .-.-. -.--
+.--. .-. .. -. -   .-. . ... ..- .-.. -
 ```
 
 **Output:**
@@ -398,24 +519,77 @@ print(result)
 15
 ```
 
-#### **String Concatenation**
+#### **For Loops**
 **Python:**
 ```python
-greeting = "Hello"
-name = "Morse"
-message = greeting + ", " + name + "!"
-print(message)
+for i in range(5):
+  print i
 ```
 
 **Morse:**
 ```text
---. .-. . . - .. -. --.   -...-   .----. .... . .-.. .-.. --- .----.
--. .- -- .   -...-   .----. -- --- .-. ... . .----.
--- . ... ... .- --. .   -...-   --. .-. . . - .. -. --. .-.-. --..--  .-.-. -. .- -- . .-.-. .----.
-.--. .-. .. -. - -.--. -- . ... ... .- --. . -.--.-
+..-. --- .-.   ..   .. -.   .-. .- -. --. . -.--. ..... -.--.- --- --..--
+  .--. .-. .. -. -   ..
 ```
 
-> 🚀 **Pro Tip:** Since Morse Lang executes Python, you can use **any Python feature** including loops (`for`, `while`), conditionals (`if`, `else`), functions (`def`), classes, imports, and more! Just translate your Python code to Morse using the mapping above.
+**Output:**
+```
+0
+1
+2
+3
+4
+```
+
+#### **While Loops**
+**Python:**
+```python
+var count = 0
+while count < 3:
+  print count
+  var count = count + 1
+```
+
+**Morse:**
+```text
+...- .- .-.   -.-. --- ..- -. -   -...-   -----
+.-- .... .. .-.. .   -.-. --- ..- -. -   -....-   ...-- --- --..--
+  .--. .-. .. -. -   -.-. --- ..- -. -
+  ...- .- .-.   -.-. --- ..- -. -   -...-   -.-. --- ..- -. - .-.-. .----
+```
+
+**Output:**
+```
+0
+1
+2
+```
+
+#### **Functions**
+**Python:**
+```python
+func add(a b):
+  return a + b
+
+var result = add(3 5)
+print result
+```
+
+**Morse:**
+```text
+..-. ..- -. -.-.   .- -.. -.. -.--. .-   -... -.--.- --- --..--
+  .-. . - ..- .-. -.   .- .-.-. -...
+
+...- .- .-.   .-. . ... ..- .-.. -   -...-   .- -.. -.. -.--. ...--   ..... -.--.-
+.--. .-. .. -. -   .-. . ... ..- .-.. -
+```
+
+**Output:**
+```
+8
+```
+
+> 🚀 **Pro Tip:** Morse Lang supports variables (`var`), math operations, print statements, for loops (`for i in range(n):`), while loops (`while condition:`), and functions (`func name(args):` with `return`). Use indentation (spaces) to define code blocks, just like Python!
 
 <hr />
 
