@@ -1,6 +1,6 @@
 """Morse Programming Language - A programming language written in Morse code."""
 
-__version__ = "1.0.3"
+__version__ = "1.1.0"
 __author__ = "Blaz"
 
 from .morse_map import MORSE_MAP
